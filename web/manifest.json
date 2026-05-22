@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
     "name": "flutterrotas",
     "short_name": "flutterrotas",
+=======
+    "name": "duplaflutter",
+    "short_name": "duplaflutter",
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

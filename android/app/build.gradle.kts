@@ -6,7 +6,11 @@ plugins {
 }
 
 android {
+<<<<<<< HEAD
     namespace = "com.example.flutterrotas"
+=======
+    namespace = "com.example.duplaflutter"
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -21,7 +25,11 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+<<<<<<< HEAD
         applicationId = "com.example.flutterrotas"
+=======
+        applicationId = "com.example.duplaflutter"
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion

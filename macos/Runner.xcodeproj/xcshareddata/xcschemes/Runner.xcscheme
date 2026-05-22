@@ -15,7 +15,11 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "33CC10EC2044A3C60003C045"
+<<<<<<< HEAD
                BuildableName = "flutterrotas.app"
+=======
+               BuildableName = "duplaflutter.app"
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
                BlueprintName = "Runner"
                ReferencedContainer = "container:Runner.xcodeproj">
             </BuildableReference>
@@ -31,7 +35,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "33CC10EC2044A3C60003C045"
+<<<<<<< HEAD
             BuildableName = "flutterrotas.app"
+=======
+            BuildableName = "duplaflutter.app"
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
             BlueprintName = "Runner"
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
@@ -66,7 +74,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "33CC10EC2044A3C60003C045"
+<<<<<<< HEAD
             BuildableName = "flutterrotas.app"
+=======
+            BuildableName = "duplaflutter.app"
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
             BlueprintName = "Runner"
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
@@ -83,7 +95,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "33CC10EC2044A3C60003C045"
+<<<<<<< HEAD
             BuildableName = "flutterrotas.app"
+=======
+            BuildableName = "duplaflutter.app"
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
             BlueprintName = "Runner"
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>

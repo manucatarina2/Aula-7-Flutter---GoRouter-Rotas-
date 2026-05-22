@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 name: flutterrotas
 description: Plataforma de Tabuadas Educacional
 publish_to: 'none'
+=======
+name: edustream
+description: Streaming educacional
+
+publish_to: 'none'
+
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
 version: 1.0.0+1
 
 environment:
@@ -9,10 +17,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+<<<<<<< HEAD
   go_router: ^14.0.0
   supabase_flutter: ^2.0.0
   google_fonts: ^6.1.0
   youtube_player_iframe: ^5.0.0
+=======
+  supabase_flutter: ^2.5.0
+  go_router: ^14.0.0
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
 
 dev_dependencies:
   flutter_test:

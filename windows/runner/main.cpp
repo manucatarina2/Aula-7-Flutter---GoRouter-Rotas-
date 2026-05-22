@@ -27,7 +27,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   FlutterWindow window(project);
   Win32Window::Point origin(10, 10);
   Win32Window::Size size(1280, 720);
+<<<<<<< HEAD
   if (!window.Create(L"flutterrotas", origin, size)) {
+=======
+  if (!window.Create(L"duplaflutter", origin, size)) {
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);

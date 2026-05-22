@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # flutterrotas
+=======
+# duplaflutter
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
 
 A new Flutter project.
 

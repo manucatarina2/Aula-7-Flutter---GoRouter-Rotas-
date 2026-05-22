@@ -1,6 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
+<<<<<<< HEAD
         android:label="flutterrotas"
+=======
+        android:label="duplaflutter"
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+<<<<<<< HEAD
+=======
+import '../models/video_model.dart';
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -10,7 +14,10 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
+<<<<<<< HEAD
   final _supabase = Supabase.instance.client;
+=======
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
   List<Map<String, dynamic>> _history = [];
   bool _isLoading = true;
 
@@ -21,12 +28,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   Future<void> _loadHistory() async {
+<<<<<<< HEAD
     final user = _supabase.auth.currentUser;
+=======
+    final user = Supabase.instance.client.auth.currentUser;
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
     if (user == null) return;
 
     setState(() => _isLoading = true);
 
     try {
+<<<<<<< HEAD
       final result = await _supabase
           .from('historico')
           .select()
@@ -35,19 +47,34 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
       setState(() {
         _history = List.from(result);
+=======
+      final response = await Supabase.instance.client.from('history').select('''
+            id,
+            watched_at,
+            videos (*)
+          ''').eq('user_id', user.id).order('watched_at', ascending: false);
+
+      setState(() {
+        _history = response;
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
         _isLoading = false;
       });
     } catch (e) {
       setState(() => _isLoading = false);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
+<<<<<<< HEAD
           SnackBar(content: Text('Erro ao carregar histórico: ${e.toString()}')),
+=======
+          SnackBar(content: Text('Erro ao carregar histórico: $e')),
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
         );
       }
     }
   }
 
   Future<void> _clearHistory() async {
+<<<<<<< HEAD
     final user = _supabase.auth.currentUser;
     if (user == null) return;
 
@@ -138,6 +165,59 @@ class _HistoryScreenState extends State<HistoryScreen> {
         return 'Nível Avançado';
       default:
         return nivel;
+=======
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user == null) return;
+
+    setState(() => _isLoading = true);
+
+    await Supabase.instance.client
+        .from('history')
+        .delete()
+        .eq('user_id', user.id);
+
+    setState(() {
+      _history = [];
+      _isLoading = false;
+    });
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Histórico limpo com sucesso!')),
+      );
+    }
+  }
+
+  Future<void> _removeFromHistory(String historyId) async {
+    await Supabase.instance.client.from('history').delete().eq('id', historyId);
+
+    setState(() {
+      _history.removeWhere((item) => item['id'] == historyId);
+    });
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Item removido do histórico')),
+      );
+    }
+  }
+
+  String _formatDate(String dateTimeString) {
+    final dateTime = DateTime.parse(dateTimeString);
+    final now = DateTime.now();
+    final difference = now.difference(dateTime);
+
+    if (difference.inDays > 7) {
+      return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
+    } else if (difference.inDays > 0) {
+      return 'Há ${difference.inDays} ${difference.inDays == 1 ? 'dia' : 'dias'}';
+    } else if (difference.inHours > 0) {
+      return 'Há ${difference.inHours} ${difference.inHours == 1 ? 'hora' : 'horas'}';
+    } else if (difference.inMinutes > 0) {
+      return 'Há ${difference.inMinutes} ${difference.inMinutes == 1 ? 'minuto' : 'minutos'}';
+    } else {
+      return 'Agora mesmo';
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
     }
   }
 
@@ -146,6 +226,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Histórico de Assistidos'),
+<<<<<<< HEAD
         centerTitle: true,
         actions: [
           if (_history.isNotEmpty)
@@ -153,10 +234,22 @@ class _HistoryScreenState extends State<HistoryScreen> {
               icon: const Icon(Icons.delete_sweep),
               onPressed: _clearHistory,
               tooltip: 'Limpar tudo',
+=======
+        backgroundColor: const Color(0xFFFFF3E0),
+        actions: [
+          if (_history.isNotEmpty)
+            TextButton(
+              onPressed: _clearHistory,
+              child: const Text(
+                'Limpar tudo',
+                style: TextStyle(color: Colors.red),
+              ),
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
             ),
         ],
       ),
       body: Container(
+<<<<<<< HEAD
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -164,6 +257,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
             colors: [Colors.amber[100]!, Colors.amber[50]!],
           ),
         ),
+=======
+        color: const Color(0xFFFFF8E1),
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
         child: _isLoading
             ? const Center(child: CircularProgressIndicator())
             : _history.isEmpty
@@ -171,6 +267,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+<<<<<<< HEAD
                         Icon(
                           Icons.history,
                           size: 80,
@@ -191,11 +288,33 @@ class _HistoryScreenState extends State<HistoryScreen> {
                             fontSize: 14,
                             color: Colors.amber[400],
                           ),
+=======
+                        Icon(Icons.history, size: 80, color: Colors.grey[400]),
+                        const SizedBox(height: 16),
+                        Text(
+                          'Nenhum vídeo assistido',
+                          style:
+                              TextStyle(fontSize: 18, color: Colors.grey[600]),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Assista vídeos para aparecerem aqui!',
+                          style:
+                              TextStyle(fontSize: 14, color: Colors.grey[500]),
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
                         ),
                         const SizedBox(height: 24),
                         ElevatedButton(
                           onPressed: () => context.go('/home'),
+<<<<<<< HEAD
                           child: const Text('Explorar Tabuadas'),
+=======
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.amber[700],
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text('Explorar vídeos'),
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
                         ),
                       ],
                     ),
@@ -204,12 +323,20 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     padding: const EdgeInsets.all(16),
                     itemCount: _history.length,
                     itemBuilder: (context, index) {
+<<<<<<< HEAD
                       final item = _history[index];
+=======
+                      final historyItem = _history[index];
+                      final video = VideoModel.fromJson(historyItem['videos']);
+                      final watchedAt = historyItem['watched_at'].toString();
+
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
                       return Card(
                         margin: const EdgeInsets.only(bottom: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
+<<<<<<< HEAD
                         child: ListTile(
                           leading: CircleAvatar(
                             backgroundColor: Colors.amber[200],
@@ -219,16 +346,37 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.amber[800],
+=======
+                        elevation: 2,
+                        child: ListTile(
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              video.coverUrl,
+                              width: 60,
+                              height: 60,
+                              fit: BoxFit.cover,
+                              errorBuilder: (_, __, ___) => Container(
+                                width: 60,
+                                height: 60,
+                                color: Colors.grey[300],
+                                child: const Icon(Icons.movie),
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
                               ),
                             ),
                           ),
                           title: Text(
+<<<<<<< HEAD
                             '${item['numero']} × ${item['multiplicador']} = ${item['resultado']}',
+=======
+                            video.title,
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+<<<<<<< HEAD
                               Text(_getNivelText(item['tipo_nivel'])),
                               Text(
                                 _formatDate(item['viewed_at']),
@@ -236,10 +384,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                   fontSize: 11,
                                   color: Colors.grey[600],
                                 ),
+=======
+                              Text(video.category),
+                              const SizedBox(height: 2),
+                              Text(
+                                _formatDate(watchedAt),
+                                style: const TextStyle(
+                                    fontSize: 11, color: Colors.grey),
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
                               ),
                             ],
                           ),
                           trailing: IconButton(
+<<<<<<< HEAD
                             icon: const Icon(Icons.close, color: Colors.red),
                             onPressed: () => _removeSingleHistory(item['id']),
                             tooltip: 'Remover',
@@ -254,6 +411,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               },
                             );
                           },
+=======
+                            icon: const Icon(Icons.delete_outline,
+                                color: Colors.red),
+                            onPressed: () =>
+                                _removeFromHistory(historyItem['id']),
+                          ),
+                          onTap: () => context.go('/detail/${video.id}'),
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
                         ),
                       );
                     },
@@ -261,4 +426,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
       ),
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63

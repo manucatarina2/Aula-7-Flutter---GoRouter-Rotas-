@@ -15,7 +15,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _confirmPasswordController = TextEditingController();
   bool _isLoading = false;
   bool _obscurePassword = true;
+<<<<<<< HEAD
   bool _obscureConfirm = true;
+=======
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
 
   Future<void> _register() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
@@ -32,6 +35,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return;
     }
 
+<<<<<<< HEAD
     setState(() => _isLoading = true);
 
     try {
@@ -47,11 +51,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         );
         context.go('/login');
+=======
+    if (_passwordController.text.length < 6) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('A senha deve ter pelo menos 6 caracteres')),
+      );
+      return;
+    }
+
+    setState(() => _isLoading = true);
+
+    try {
+      final response = await Supabase.instance.client.auth.signUp(
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+      );
+
+      if (response.user != null) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                content:
+                    Text('Cadastro realizado com sucesso! Faça seu login.')),
+          );
+          context.go('/login');
+        }
+      }
+    } on AuthException catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro: ${e.message}')),
+        );
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
+<<<<<<< HEAD
           SnackBar(content: Text('Erro: ${e.toString()}')),
+=======
+          SnackBar(content: Text('Erro ao cadastrar: $e')),
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
         );
       }
     } finally {
@@ -63,6 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+<<<<<<< HEAD
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -183,6 +225,155 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ],
                     ),
                   ],
+=======
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFFFFF8E1), Color(0xFFFFE0B2)],
+          ),
+        ),
+        child: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Card(
+                elevation: 8,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.amber[100],
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.person_add,
+                          size: 50,
+                          color: Colors.amber[700],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Criar Conta',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.brown[700],
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Preencha os dados abaixo',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.brown[500],
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+                      TextField(
+                        controller: _emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          labelText: 'E-mail',
+                          prefixIcon: const Icon(Icons.email_outlined),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: _passwordController,
+                        obscureText: _obscurePassword,
+                        decoration: InputDecoration(
+                          labelText: 'Senha',
+                          prefixIcon: const Icon(Icons.lock_outline),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                            onPressed: () => setState(
+                                () => _obscurePassword = !_obscurePassword),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: _confirmPasswordController,
+                        obscureText: _obscurePassword,
+                        decoration: InputDecoration(
+                          labelText: 'Confirmar Senha',
+                          prefixIcon: const Icon(Icons.lock_outline),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: _isLoading ? null : _register,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.amber[700],
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            elevation: 2,
+                          ),
+                          child: _isLoading
+                              ? const SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : const Text('Cadastrar',
+                                  style: TextStyle(fontSize: 16)),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Já tem conta?',
+                            style: TextStyle(color: Colors.brown[600]),
+                          ),
+                          TextButton(
+                            onPressed: () => context.go('/login'),
+                            child: const Text(
+                              'Faça login',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
                 ),
               ),
             ),
@@ -191,6 +382,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+<<<<<<< HEAD
 
   @override
   void dispose() {
@@ -200,3 +392,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 }
+=======
+}
+>>>>>>> fdca2904316bc4712de5933727bc3972f49dbb63
